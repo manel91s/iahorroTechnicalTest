@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
+
+use App\Http\Services\Interface\ScoreServiceInterface;
 
 use App\Models\Client;
 

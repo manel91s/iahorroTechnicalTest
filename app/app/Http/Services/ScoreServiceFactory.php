@@ -1,6 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
+
+use App\Http\Services\Interface\ScoreServiceInterface;
+use App\Http\Services\LeadScoringService;
+use App\Http\Services\NewCustomerScoringService;
+use App\Http\Services\RegularCostumerScoringService;
+
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class ScoreServiceFactory 
