@@ -36,7 +36,7 @@ Estos tipos de cliente se relacionaran entre Cliente y TipoCliente.
 5. Lanzar seeders:<br/>
 **php artisan db:seed**
 
-Endpoints **(En pro no hay registros en Client, crear de nuevos manualmente con save)** <br/>
+Endpoints **(En pro no hay registros en Client, crear de nuevos manualmente con save):** <br/><br/>
 Route::post('/client/save', [ClientController::class, 'save']);<br/>
 **http://localhost:8080/api/client/save**
 Requiere: name, email, phone, type_id (1 - 3)
