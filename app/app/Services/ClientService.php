@@ -12,11 +12,27 @@ class ClientService
 {
 
     /**
+     * get a client
+     * @param int $id
+     * @return Client|null
+     */
+    public function get(int $id): ?Client
+    {
+        $client = Client::find($id);
+
+        if (!$client) {
+            throw new BadRequestHttpException('Client not found', null, 400);
+        }
+
+        return $client;
+    }
+
+    /**
      * store a new client
      * @param Request $request
      * @return Client|null
      */
-    public function store(Request $request): ?Client
+    public function save(Request $request): ?Client
     {
         $register = new Client([
             'name' => $request->get('name'),
@@ -35,10 +51,48 @@ class ClientService
         $client = Client::find($register->id);
 
         $client->score = $this->getScore($client);
-
         $client->save();
 
         return $client;
+    }
+
+    /**
+     * update a client
+     * @param Request $request
+     * @return Client|null
+     */
+    public function update(Request $request, int $id): ?Client
+    {
+        $client = Client::find($id);
+
+        if (!$client) {
+            throw new BadRequestHttpException('Client not found', null, 400);
+        }
+
+        $client->name = $request->get('name');
+        $client->email = $request->get('email');
+        $client->phone = $request->get('phone');
+        $client->type_id = $request->get('type_id');
+        $client->score = $this->getScore($client);
+        $client->save();
+
+        return $client;
+    }
+
+    /**
+     * delete a client
+     * @param Request $request
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $client = Client::find($id);
+
+        if (!$client) {
+            throw new BadRequestHttpException('Client not found', null, 400);
+        }
+
+        $client->delete();
     }
 
     /**
@@ -53,25 +107,5 @@ class ClientService
         );
 
         return $scoreService->getScore($client)['score'];
-    }
-
-    /**
-     * update a client
-     * @param Request $request
-     * @return Client|null
-     */
-    public function update(Request $request): ?Client
-    {
-        return null;
-    }
-
-    /**
-     * delete a client
-     * @param Request $request
-     * @return string|null
-     */
-    public function delete(Request $request): ?string
-    {
-        return null;
     }
 }
