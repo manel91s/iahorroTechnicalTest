@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Interface;
+namespace App\Services\Interface;
 
 use App\Models\Client;
 

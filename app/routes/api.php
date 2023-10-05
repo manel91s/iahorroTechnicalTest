@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get('/client', [ClientController::class, 'store']);
+Route::post('/client', [ClientController::class, 'store']);

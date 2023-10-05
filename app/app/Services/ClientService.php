@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Models\Client;
+use Illuminate\Http\Client\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ClientService
 {
-    public function __construct()
-    {
-    }
 
     /**
      * store a new client
@@ -18,7 +17,19 @@ class ClientService
      */
     public function store(Request $request): ?Client
     {
-        return null;
+        $register = new Client([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'phone' => $request->get('phone')
+        ]);
+
+        $register->save();
+        
+        if (!$register->id) {
+            throw new BadRequestHttpException('Error to save client', null, 400);
+        }
+
+        return Client::find($register->id);
     }
 
     /**

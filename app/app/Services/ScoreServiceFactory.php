@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Http\Services\Interface\ScoreServiceInterface;
 use App\Http\Services\LeadScoringService;
