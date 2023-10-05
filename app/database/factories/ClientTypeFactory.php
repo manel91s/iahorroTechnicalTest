@@ -2,14 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\ClientType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Client>
  */
-class ClientFactory extends Factory
+class ClientTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,9 +19,6 @@ class ClientFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->phoneNumber(),
-            'type_id' => ClientType::factory()->create()->id
         ];
     }
 }

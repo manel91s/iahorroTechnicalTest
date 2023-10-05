@@ -41,12 +41,15 @@ class ClientControllerTest extends TestCase
         $response->assertStatus(400);
     }
     
+    /**
+     * save a client
+     */
     public function testSaveClient()
     {
         $request = [
             'name' => 'test',
             'email' => 'test@test.com',
-            'phone' => '123456789'
+            'phone' => '123456789',
         ];
 
         $response = $this->postJson(self::ENDPOINT_STORE, $request);
