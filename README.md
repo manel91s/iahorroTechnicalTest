@@ -9,7 +9,14 @@ Siguiendo el patrón de arquitectura MVC, mi enfoque general consiste en separar
 ## Arquitectura y Diseño
 En la raíz del proyecto, adjunto una imagen del diagrama UML. En este diagrama, notarás que la clase "Lead" no está presente. Si en el futuro deseamos agregar otros tipos de clientes, sería complicado y no escalable. Además, acumularíamos deuda técnica al no poder actualizar fácilmente el tipo de cliente. He introducido la clase "Client," que mantendrá una relación con "TypeClient," lo que nos permitirá definir en cualquier momento el tipo de cliente.
 
-También he añadido que el modelo del cliente implemente una interfaz llamada "ModelInterface." Esto permitirá que nuestro "ClientService" abstraiga este modelo y facilite las pruebas unitarias mediante la inversión de dependencias. Además, como se muestra en el diagrama, la clase "ClientService" también se asocia con el servicio "LeadScoringService" para realizar los cálculos necesarios y separar esa responsabilidad.
+La clase "ClientService", como capa intermedia, se encargará de recibir las solicitudes que llegan desde el controlador. En esta capa, se llevará a cabo toda la lógica necesaria para gestionar las respuestas HTTP, así como para delegar la persistencia de datos al modelo. Además, en caso de que sea necesario incorporar otros métodos que involucren lógica de negocio, esta capa facilitará considerablemente la tarea de realizar pruebas.
+
+Este servicio también se relaciona con el servicio "ScoringServiceFactory". En términos de escalabilidad, es probable que en el futuro cada tipo de cliente requiera un cálculo diferente. Por lo tanto, le proporcionaremos un método que incluya el tipo de cliente como parámetro, lo que permitirá abstraer el cálculo del puntaje según el tipo de cliente.
+
+Tipos de clientes:
+1. Lead
+2. New Customer
+3. Regular Customer
 
 ## Implementación
 
