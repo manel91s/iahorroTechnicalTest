@@ -38,14 +38,14 @@ Estos tipos de cliente se relacionaran entre Cliente y TipoCliente.
 
 Endpoints **(En pro no hay registros en Client, crear de nuevos manualmente con save):** <br/><br/>
 Route::post('/client/save', [ClientController::class, 'save']);<br/>
-**http://localhost:8080/api/client/save**
-Requiere: name, email, phone, type_id (1 - 3)
+**http://localhost:8080/api/client/save**<br/>
+**Requiere:** name, email, phone, type_id (1 - 3)
 
 Route::get('/client/{id}', [ClientController::class, 'get']);<br/>
 **http://localhost:8080/api/client/1**
 
 Route::put('/client/update/{id}', [ClientController::class, 'update']);<br/>
-http://localhost:8080/api/client/update/1
+http://localhost:8080/api/client/update/1 <br/>
 **Requiere: name, email, phone, type_id (1 - 3)**
 
 Route::delete('/client/delete/{id}', [ClientController::class, 'destroy']);<br/>
