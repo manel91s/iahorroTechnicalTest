@@ -10,7 +10,7 @@ class ValidatorRequest
 {
     public static function validate(Request $request): void
     {
-
+     
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email',

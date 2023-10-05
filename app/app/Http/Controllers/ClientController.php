@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\ValidatorRequest;
 use App\Services\ClientService;
-use App\Models\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

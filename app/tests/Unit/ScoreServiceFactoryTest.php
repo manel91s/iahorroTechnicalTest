@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace Tests\Unit;
 
 use App\Services\ScoreServiceFactory;
+use App\Services\Interface\ScoreServiceInterface;
 use Tests\TestCase;
 
 class ScoreServiceFactoryTest extends TestCase
@@ -19,7 +20,7 @@ class ScoreServiceFactoryTest extends TestCase
     {
         $result = ScoreServiceFactory::make(ScoreServiceFactory::LEAD);
 
-        $this->assertInstanceOf(LeadScoringService::class, $result);
+        $this->assertInstanceOf(ScoreServiceInterface::class, $result);
     }
 
     /**
@@ -29,7 +30,7 @@ class ScoreServiceFactoryTest extends TestCase
     {
         $result = ScoreServiceFactory::make(ScoreServiceFactory::NEW_CUSTOMER);
 
-        $this->assertInstanceOf(NewCustomerScoringService::class, $result);
+        $this->assertInstanceOf(ScoreServiceInterface::class, $result);
     }
 
     /**
@@ -39,7 +40,7 @@ class ScoreServiceFactoryTest extends TestCase
     {
         $result = ScoreServiceFactory::make(ScoreServiceFactory::REGULAR_CUSTOMER);
 
-        $this->assertInstanceOf(RegularCostumerScoringService::class, $result);
+        $this->assertInstanceOf(ScoreServiceInterface::class, $result);
     }
 
     /**

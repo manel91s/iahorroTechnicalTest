@@ -82,9 +82,9 @@ class ClientService
     /**
      * delete a client
      * @param Request $request
-     * @return void
+     * @return bool
      */
-    public function delete(int $id): void
+    public function delete(int $id): bool
     {
         $client = Client::find($id);
 
@@ -92,7 +92,7 @@ class ClientService
             throw new BadRequestHttpException('Client not found', null, 400);
         }
 
-        $client->delete();
+        return $client->delete();
     }
 
     /**

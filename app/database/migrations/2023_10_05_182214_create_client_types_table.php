@@ -21,6 +21,12 @@ return new class extends Migration
             $table->integer('score')->default(0);
             $table->timestamps();
         });
+
+        Schema::table('clients', function (Blueprint $table) {
+            $table->unsignedBigInteger('type_id');
+         
+            $table->foreign('type_id')->references('id')->on('client_types');
+        });
     }
 
     /**

@@ -9,12 +9,11 @@ use App\Services\RegularCostumerScoringService;
 
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
-class ScoreServiceFactory 
+class ScoreServiceFactory
 {
-
-    CONST LEAD = 1;
-    CONST NEW_CUSTOMER = 2;
-    CONST REGULAR_CUSTOMER = 3;
+    const LEAD = 1;
+    const NEW_CUSTOMER = 2;
+    const REGULAR_CUSTOMER = 3;
     
     public static function make(string $type): ?ScoreServiceInterface
     {

@@ -15,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /* \App\Models\User::factory(10)->create();
-
-         \App\Models\User::factory()->create([
-             'name' => Str::random(10),
-             'email' => Str::random(10).'@gmail.com',
-         ]);*/
+        \App\Models\ClientType::factory()->create([
+            'name' => 'Lead',
+        ]);
+        \App\Models\ClientType::factory()->create([
+           'name' => 'New Customer',
+       ]);
+       \App\Models\ClientType::factory()->create([
+           'name' => 'Regular Customer',
+       ]);
+        
     }
 }
