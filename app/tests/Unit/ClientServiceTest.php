@@ -4,22 +4,14 @@ namespace Tests\Unit;
 
 use App\Models\Client;
 use App\Services\ClientService;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Database\Seeders\DatabaseSeeder;
 use Symfony\Component\HttpFoundation\Request;
 use Tests\TestCase;
 
 class ClientServiceTest extends TestCase
 {
-    use DatabaseMigrations;
-    use RefreshDatabase;
-
     public function setup(): void
     {
         parent::setUp();
-
-        $this->seed(DatabaseSeeder::class);
     }
 
     /**
@@ -76,7 +68,7 @@ class ClientServiceTest extends TestCase
                     ]
                 )
             );
-        
+
         $id = 1;
         $result = $clientServiceMock->update(new Request([
             'id' => 1,
@@ -87,5 +79,51 @@ class ClientServiceTest extends TestCase
         ]), $id);
 
         $this->assertEquals('manelUpdated@test.com', $result->email);
+    }
+
+    /**
+     * check if get method returns a client
+     */
+    public function testGetClient()
+    {
+        $clientServiceMock = $this->getMockBuilder(ClientService::class)
+            ->onlyMethods(['get'])
+            ->getMock();
+
+        $clientServiceMock->expects($this->once())
+            ->method('get')
+            ->willReturn(
+                new Client(
+                    [
+                        'id' => 1,
+                        'name' => 'manel',
+                        'email' => 'manel@test.com',
+                        'phone' => '12345667',
+                        'type_id' => 1
+                    ]
+                )
+            );
+
+        $result = $clientServiceMock->get(1);
+   
+        $this->assertInstanceOf(Client::class, $result);
+    }
+
+    /**
+     * check if delete method returns a true
+     */
+    public function testDeleteClient()
+    {
+        $clientServiceMock = $this->getMockBuilder(ClientService::class)
+            ->onlyMethods(['delete'])
+            ->getMock();
+
+        $clientServiceMock->expects($this->once())
+            ->method('delete')
+            ->willReturn(true);
+
+        $result = $clientServiceMock->delete(1);
+   
+        $this->assertTrue($result);
     }
 }
