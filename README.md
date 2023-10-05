@@ -21,8 +21,39 @@ Tipos de clientes:
 Estos tipos de cliente se relacionaran entre Cliente y TipoCliente.
 
 ## Ejecución
+1. Para arrancar los servicios y las bases de datos relacionadas al proyecto lanzar el comando:
+docker compose up -d
+
+2. Acceder al contenedor del proyecto:
+docker exec -it php_lead bash
+
+3. Instalar las dependencias del proyecto:
+composer install
+
+4. Lanzar migraciones:
+php artisan migrate
+
+5. Lanzar seeders:
+php artisan db:seed
+
+Endpoints (En pro no hay registros en Client, crear de nuevos manualmente con save):
+Route::post('/client/save', [ClientController::class, 'save']);
+http://localhost:8080/api/client/save
+Requiere: name, email, phone, type_id (1 - 3)
+
+Route::get('/client/{id}', [ClientController::class, 'get']);
+http://localhost:8080/api/client/1
+
+Route::put('/client/update/{id}', [ClientController::class, 'update']);
+http://localhost:8080/api/client/update/1
+Requiere: name, email, phone, type_id (1 - 3)
+
+Route::delete('/client/delete/{id}', [ClientController::class, 'destroy']);
+Route::delete('/client/delete/{id}', [ClientController::class, 'destroy']);
+http://localhost:8080/api/client/delete/1
 
 
 ## Pruebas
-Existen pruebas unitarias y funcionales, estas pruebas se persisten en una base de datos a parte de test, para ejecutar todos los tests ejecutar el comando:
+Estas pruebas se persisten y se borran los datos al lanzar los tests en una base de datos a parte de test para las pruebas funcionales, existen pruebas unitarias y funcionales en la carpeta /tests/functional y /tests/unit,  para ejecutar todos los tests ejecutar el comando:
+
 php artisan test
