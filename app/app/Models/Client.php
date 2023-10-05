@@ -14,7 +14,8 @@ class Client extends Model
     protected $fillable = [
         'name',
         'email',
-        'phone'
+        'phone',
+        'score'
     ];
 
     public function clientTypes(): HasMany

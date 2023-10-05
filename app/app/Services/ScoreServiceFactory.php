@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Http\Services\Interface\ScoreServiceInterface;
-use App\Http\Services\LeadScoringService;
-use App\Http\Services\NewCustomerScoringService;
-use App\Http\Services\RegularCostumerScoringService;
+use App\Services\Interface\ScoreServiceInterface;
+use App\Services\LeadScoringService;
+use App\Services\NewCustomerScoringService;
+use App\Services\RegularCostumerScoringService;
 
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
@@ -16,7 +16,7 @@ class ScoreServiceFactory
     CONST NEW_CUSTOMER = 2;
     CONST REGULAR_CUSTOMER = 3;
     
-    public static function make(string $type): ScoreServiceInterface
+    public static function make(string $type): ?ScoreServiceInterface
     {
         switch ($type) {
             case self::LEAD:

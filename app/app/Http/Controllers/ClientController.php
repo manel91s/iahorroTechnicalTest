@@ -29,9 +29,9 @@ class ClientController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            
+
             $this->validatorRequest->validate($request);
-            
+
             $client = $this->clientService->store($request);
 
             return response()->json($client, 201);

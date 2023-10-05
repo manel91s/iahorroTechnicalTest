@@ -15,6 +15,7 @@ class ValidatorRequest
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
+            'type_id' => 'required|integer'
         ]);
 
         if ($validator->fails()) {

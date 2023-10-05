@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Services\Interface\ScoreServiceInterface;
 
 use App\Models\Client;
+use App\Services\Interface\ScoreServiceInterface;
 
 class LeadScoringService implements ScoreServiceInterface
 {

@@ -21,6 +21,7 @@ class ClientSeeder extends Seeder
              'name' => Str::random(10),
              'email' => Str::random(10).'@gmail.com',
              'phone' => '1234567890',
+             'type_id' => int::random(1, 3),
          ]);
     }
 }

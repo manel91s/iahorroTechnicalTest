@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('email', 100)->unique();
             $table->string('phone', 20);
+            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Client;
+use App\Models\ClientType;
 use Illuminate\Http\Client\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -20,16 +21,38 @@ class ClientService
         $register = new Client([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'phone' => $request->get('phone')
+            'phone' => $request->get('phone'),
         ]);
-
-        $register->save();
         
+        $register->type_id = $request->get('type_id');
+        
+        $register->save();
+
         if (!$register->id) {
             throw new BadRequestHttpException('Error to save client', null, 400);
         }
 
-        return Client::find($register->id);
+        $client = Client::find($register->id);
+
+        $client->score = $this->getScore($client);
+
+        $client->save();
+
+        return $client;
+    }
+
+    /**
+     * get score from a client calling a service factory
+     * @param Client $client
+     * @return int
+     */
+    private function getScore(Client $client): int
+    {
+        $scoreService = ScoreServiceFactory::make(
+            $client->type_id
+        );
+
+        return $scoreService->getScore($client)['score'];
     }
 
     /**

@@ -22,6 +22,7 @@ class ClientFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
+            'score' => fake()->numberBetween(0, 100),
             'type_id' => ClientType::factory()->create()->id
         ];
     }

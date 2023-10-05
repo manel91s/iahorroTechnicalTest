@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Services\Interface\ScoreServiceInterface;
+use App\Services\Interface\ScoreServiceInterface;
 
 use App\Models\Client;
 
