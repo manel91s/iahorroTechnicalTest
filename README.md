@@ -18,11 +18,11 @@ Tipos de clientes:
 2. New Customer
 3. Regular Customer
 
-## Implementación
-
+Estos tipos de cliente se relacionaran entre Cliente y TipoCliente.
 
 ## Ejecución
 
 
 ## Pruebas
-Para las pruebas unitarias y funcionales, he separado la conexión a una base de datos de prueba mediante microservicios.
+Existen pruebas unitarias y funcionales, estas pruebas se persisten en una base de datos a parte de test, para ejecutar todos los tests ejecutar el comando:
+php artisan test
