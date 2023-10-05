@@ -20,6 +20,9 @@ Tipos de clientes:
 
 Estos tipos de cliente se relacionaran entre Cliente y TipoCliente.
 
+## Requisitos
+Docker
+
 ## Ejecución
 1. Para arrancar los servicios y las bases de datos relacionadas al proyecto lanzar el comando:<br/>
 **docker compose up -d**
