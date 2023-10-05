@@ -24,7 +24,7 @@ Estos tipos de cliente se relacionaran entre Cliente y TipoCliente.
 Docker
 
 ## Ejecución
-1. Para arrancar los servicios y las bases de datos relacionadas al proyecto lanzar el comando:<br/>
+1. Para arrancar los servicios y las bases de datos relacionadas, en la raiz del proyecto lanzar el comando:<br/>
 **docker compose up -d**
 
 2. Acceder al contenedor del proyecto:<br/>
