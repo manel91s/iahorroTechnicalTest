@@ -48,12 +48,10 @@ class ClientService
             throw new BadRequestHttpException('Error to save client', null, 400);
         }
 
-        $client = Client::find($register->id);
+        $register->score = $this->getScore($register);
+        $register->save();
 
-        $client->score = $this->getScore($client);
-        $client->save();
-
-        return $client;
+        return $register;
     }
 
     /**
