@@ -1,7 +1,7 @@
 # Prueba Técnica iahorro
 
 ## Introducción
-Esta prueba técnica se enfoca en abordar los problemas de diseño identificados en un controlador que no sigue las mejores prácticas de programación.
+Esta prueba técnica tiene como objetivo abordar los problemas de diseño identificados en un controlador que no cumple con las mejores prácticas de programación.
 
 ## Enfoque General
 Siguiendo el patrón de arquitectura MVC, mi enfoque general consiste en separar los métodos en un servicio independiente que gestione la división de responsabilidades. Esto permitirá que, a medida que nuestra aplicación crezca, evitemos que el controlador se llene de métodos que contengan lógica de negocio. En última instancia, el controlador se ocupará únicamente de transmitir las solicitudes a los servicios y devolver las respuestas al cliente.
