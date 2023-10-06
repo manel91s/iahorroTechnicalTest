@@ -11,7 +11,7 @@ En la raíz del proyecto, adjunto una imagen del diagrama UML. En este diagrama,
 
 La clase "ClientService", como capa intermedia, se encargará de recibir las solicitudes que llegan desde el controlador. En esta capa, se llevará a cabo toda la lógica necesaria para gestionar las respuestas HTTP, así como para delegar la persistencia de datos al modelo. Además, en caso de que sea necesario incorporar otros métodos que involucren lógica de negocio, esta capa facilitará considerablemente la tarea de realizar pruebas.
 
-Este servicio también se relaciona con el servicio "ScoringServiceFactory". En términos de escalabilidad, es probable que en el futuro cada tipo de cliente requiera un cálculo diferente. Por lo tanto, le proporcionaremos un método que incluya el tipo de cliente como parámetro, lo que permitirá abstraer el cálculo del puntaje según el tipo de cliente.
+Este servicio también se asocia con el servicio "ScoringServiceFactory". En términos de escalabilidad, es probable que en el futuro cada tipo de cliente requiera un cálculo diferente. Por lo tanto, le proporcionaremos un método que incluya el tipo de cliente como parámetro, lo que permitirá abstraer el cálculo del puntaje según el tipo de cliente.
 
 Tipos de clientes:
 1. Lead
