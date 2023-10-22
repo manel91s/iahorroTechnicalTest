@@ -17,7 +17,6 @@ class ClientServiceTest extends TestCase
 
     private ClientService $clientService;
     private ClientRepositoryFake $clientRepository;
-    private Client $client;
 
     public function setup(): void
     {
@@ -41,10 +40,10 @@ class ClientServiceTest extends TestCase
             'type_id' => 1
         ]);
 
-        $this->client = $this->clientService->save($request);
+        $result = $this->clientService->save($request);
 
-        $this->assertInstanceOf(Client::class, $this->client);
-        $this->assertNotNull($this->client->id);
+        $this->assertInstanceOf(Client::class, $result);
+        $this->assertNotNull($result);
     }
 
     /**
@@ -61,9 +60,9 @@ class ClientServiceTest extends TestCase
             'type_id' => 2
         ]);
 
-        $this->client = $this->clientService->update($request, 1);
+        $result = $this->clientService->update($request, 1);
 
-        $this->assertEquals('manelUpdated@test.com', $this->client->email);
+        $this->assertEquals('manelUpdated@test.com', $result->email);
     }
 
     /**
@@ -73,10 +72,10 @@ class ClientServiceTest extends TestCase
     {
         $this->testSaveClient();
 
-        $this->client = $this->clientService->get(1);
+        $result = $this->clientService->get(1);
 
-        $this->assertInstanceOf(Client::class, $this->client);
-        $this->assertNotNull($this->client->id);
+        $this->assertInstanceOf(Client::class, $result);
+        $this->assertNotNull($result);
     }
 
     /**

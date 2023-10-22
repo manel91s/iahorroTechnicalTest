@@ -78,7 +78,8 @@ class ClientService
         $client->phone = $request->get('phone');
         $client->type_id = $request->get('type_id');
         $client->score = $this->getScore($client);
-        $client->save();
+
+        $client = $this->clientRepository->update($client);
 
         return $client;
     }
