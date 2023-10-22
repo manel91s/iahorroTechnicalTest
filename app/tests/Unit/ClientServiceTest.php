@@ -4,14 +4,29 @@ namespace Tests\Unit;
 
 use App\Models\Client;
 use App\Services\ClientService;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Database\Seeders\DatabaseSeeder;
 use Symfony\Component\HttpFoundation\Request;
 use Tests\TestCase;
 
 class ClientServiceTest extends TestCase
 {
+    use DatabaseMigrations;
+    use RefreshDatabase;
+
+    private ClientService $clientService;
+    private ClientRepositoryFake $clientRepository;
+    private Client $client;
+
     public function setup(): void
     {
         parent::setUp();
+
+        $this->clientRepository = new ClientRepositoryFake();
+        $this->clientService = new ClientService($this->clientRepository);
+
+        $this->seed(DatabaseSeeder::class);
     }
 
     /**
@@ -19,31 +34,17 @@ class ClientServiceTest extends TestCase
      */
     public function testSaveClient()
     {
-        $clientServiceMock = $this->getMockBuilder(ClientService::class)
-            ->onlyMethods(['save'])
-            ->getMock();
-
-        $clientServiceMock->expects($this->once())
-            ->method('save')
-            ->willReturn(
-                new Client(
-                    [
-                        'name' => 'manel',
-                        'email' => 'manel@test.com',
-                        'phone' => '12345667',
-                        'type_id' => 1
-                    ]
-                )
-            );
-
-        $result = $clientServiceMock->save(new Request([
+        $request = new Request([
             'name' => 'manel',
-            'email' => 'manel@test.com',
+            'email' => 'manel.aguilera91@gmail.com',
             'phone' => '12345667',
             'type_id' => 1
-        ]));
+        ]);
 
-        $this->assertInstanceOf(Client::class, $result);
+        $this->client = $this->clientService->save($request);
+
+        $this->assertInstanceOf(Client::class, $this->client);
+        $this->assertNotNull($this->client->id);
     }
 
     /**
@@ -51,34 +52,18 @@ class ClientServiceTest extends TestCase
      */
     public function testUpdateClient()
     {
-        $clientServiceMock = $this->getMockBuilder(ClientService::class)
-            ->onlyMethods(['update'])
-            ->getMock();
+        $this->testSaveClient();
 
-        $clientServiceMock->expects($this->once())
-            ->method('update')
-            ->willReturn(
-                new Client(
-                    [
-                        'id' => 1,
-                        'name' => 'manel',
-                        'email' => 'manelUpdated@test.com',
-                        'phone' => '12345667',
-                        'type_id' => 1
-                    ]
-                )
-            );
-
-        $id = 1;
-        $result = $clientServiceMock->update(new Request([
-            'id' => 1,
-            'name' => 'manel',
+        $request = new Request([
+            'name' => 'manelUpdated',
             'email' => 'manelUpdated@test.com',
             'phone' => '12345667',
-            'type_id' => 1
-        ]), $id);
+            'type_id' => 2
+        ]);
 
-        $this->assertEquals('manelUpdated@test.com', $result->email);
+        $this->client = $this->clientService->update($request, 1);
+
+        $this->assertEquals('manelUpdated@test.com', $this->client->email);
     }
 
     /**
@@ -86,27 +71,12 @@ class ClientServiceTest extends TestCase
      */
     public function testGetClient()
     {
-        $clientServiceMock = $this->getMockBuilder(ClientService::class)
-            ->onlyMethods(['get'])
-            ->getMock();
+        $this->testSaveClient();
 
-        $clientServiceMock->expects($this->once())
-            ->method('get')
-            ->willReturn(
-                new Client(
-                    [
-                        'id' => 1,
-                        'name' => 'manel',
-                        'email' => 'manel@test.com',
-                        'phone' => '12345667',
-                        'type_id' => 1
-                    ]
-                )
-            );
+        $this->client = $this->clientService->get(1);
 
-        $result = $clientServiceMock->get(1);
-   
-        $this->assertInstanceOf(Client::class, $result);
+        $this->assertInstanceOf(Client::class, $this->client);
+        $this->assertNotNull($this->client->id);
     }
 
     /**
@@ -114,16 +84,12 @@ class ClientServiceTest extends TestCase
      */
     public function testDeleteClient()
     {
-        $clientServiceMock = $this->getMockBuilder(ClientService::class)
-            ->onlyMethods(['delete'])
-            ->getMock();
+        $this->testSaveClient();
 
-        $clientServiceMock->expects($this->once())
-            ->method('delete')
-            ->willReturn(true);
+        $resultDelete = $this->clientService->delete(1);
+        $resultGet = $this->clientRepository->get(1);
 
-        $result = $clientServiceMock->delete(1);
-   
-        $this->assertTrue($result);
+        $this->assertTrue($resultDelete);
+        $this->assertNull($resultGet);
     }
 }
