@@ -11,7 +11,7 @@ class ClientControllerTest extends TestCase
 {
     use DatabaseMigrations;
     use RefreshDatabase;
- 
+
     const ENDPOINT_STORE = '/api/client/save';
     const ENDPOINT_UPDATE = '/api/client/update/1';
     const ENDPOINT_DELETE = '/api/client/delete/1';
@@ -20,10 +20,10 @@ class ClientControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->seed(DatabaseSeeder::class);
     }
-    
+
     /**
      * Check if field name is empty
      */
@@ -57,10 +57,10 @@ class ClientControllerTest extends TestCase
     public function testClientNotypeId()
     {
         $response = $this->postJson(self::ENDPOINT_STORE, ['type_id' => 0]);
-        
+
         $response->assertStatus(400);
     }
-    
+
     /**
      * save a client
      */
@@ -81,14 +81,14 @@ class ClientControllerTest extends TestCase
     /**
      * Get a client
      */
-     public function testGetClient()
-     {
-         $this->testSaveClient();
- 
-         $response = $this->getJson(self::ENDPOINT_GET);
- 
-         $response->assertStatus(200);
-     }
+    public function testGetClient()
+    {
+        $this->testSaveClient();
+
+        $response = $this->getJson(self::ENDPOINT_GET);
+
+        $response->assertStatus(200);
+    }
 
     /**
      * Update a client
@@ -121,4 +121,3 @@ class ClientControllerTest extends TestCase
         $response->assertStatus(200);
     }
 }
-

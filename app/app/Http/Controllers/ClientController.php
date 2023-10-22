@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\ValidatorRequest;
+use App\Repository\ClientRepository;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +16,9 @@ class ClientController extends Controller
 
     public function __construct()
     {
-        $this->clientService = new ClientService();
+        $this->clientService = new ClientService(
+            new ClientRepository()
+        );
         $this->validatorRequest = new ValidatorRequest();
     }
 
@@ -30,14 +33,14 @@ class ClientController extends Controller
             $client = $this->clientService->get($id);
 
             return response()->json([
-                'msg' => 'Client found', 
+                'msg' => 'Client found',
                 'data' => $client
             ], 200);
         } catch (BadRequestHttpException $e) {
             return response()->json(['error' => $e->getMessage()], $e->getStatusCode());
         }
     }
-    
+
     /**
      * Store a new client
      * @param Request $request
@@ -46,13 +49,13 @@ class ClientController extends Controller
     public function save(Request $request): JsonResponse
     {
         try {
-       
+
             $this->validatorRequest->validate($request);
 
             $client = $this->clientService->save($request);
 
             return response()->json([
-                'msg' => 'Client created succesfully', 
+                'msg' => 'Client created succesfully',
                 'data' => $client
             ], 201);
         } catch (BadRequestHttpException $e) {
@@ -74,8 +77,8 @@ class ClientController extends Controller
             $client = $this->clientService->update($request, $id);
 
             return response()->json([
-                'msg' => 'Client updated succesfully', 
-                'data' =>$client
+                'msg' => 'Client updated succesfully',
+                'data' => $client
             ], 200);
         } catch (BadRequestHttpException $e) {
             return response()->json(['error' => $e->getMessage()], $e->getStatusCode());
@@ -84,7 +87,7 @@ class ClientController extends Controller
 
     /**
      * Delete a client
-     * @param Request $request
+     * @param Request $requestp
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
