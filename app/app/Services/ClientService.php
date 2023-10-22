@@ -3,13 +3,19 @@
 namespace App\Services;
 
 use App\Models\Client;
-use App\Models\ClientType;
-use Illuminate\Http\Client\Response;
+use App\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use App\Repository\RepositoryInterface;
 
 class ClientService
 {
+    private RepositoryInterface $clientRepository;
+
+    public function __construct(RepositoryInterface $clientRepository)
+    {
+        $this->clientRepository = $clientRepository;
+    }
 
     /**
      * get a client
@@ -18,7 +24,7 @@ class ClientService
      */
     public function get(int $id): ?Client
     {
-        $client = Client::find($id);
+        $client = $this->clientRepository->get($id);
 
         if (!$client) {
             throw new BadRequestHttpException('Client not found', null, 400);
@@ -39,21 +45,19 @@ class ClientService
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
         ]);
-        
+
         $register->type_id = $request->get('type_id');
-        
-        $register->save();
+
+        $register = $this->clientRepository->save($register);
 
         if (!$register->id) {
             throw new BadRequestHttpException('Error to save client', null, 400);
         }
 
-        $client = Client::find($register->id);
+        $register->score = $this->getScore($register);
+        $register->save();
 
-        $client->score = $this->getScore($client);
-        $client->save();
-
-        return $client;
+        return $register;
     }
 
     /**
@@ -63,7 +67,7 @@ class ClientService
      */
     public function update(Request $request, int $id): ?Client
     {
-        $client = Client::find($id);
+        $client = $this->clientRepository->get($id);
 
         if (!$client) {
             throw new BadRequestHttpException('Client not found', null, 400);
@@ -86,13 +90,13 @@ class ClientService
      */
     public function delete(int $id): bool
     {
-        $client = Client::find($id);
+        $client = $this->clientRepository->get($id);
 
         if (!$client) {
             throw new BadRequestHttpException('Client not found', null, 400);
         }
 
-        return $client->delete();
+        return $this->clientRepository->delete($client->id);
     }
 
     /**
