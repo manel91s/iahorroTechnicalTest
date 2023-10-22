@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Repository\RepositoryInterface;
 use App\Models\Client;
 
-class ClientRepositoryFake implements RepositoryInterface
+class InMemoryClientRepository implements RepositoryInterface
 {
   private array $clients = [];
 

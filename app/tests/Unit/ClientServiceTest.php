@@ -16,13 +16,13 @@ class ClientServiceTest extends TestCase
     use RefreshDatabase;
 
     private ClientService $clientService;
-    private ClientRepositoryFake $clientRepository;
-
+    private InMemoryClientRepository $clientRepository;
+   
     public function setup(): void
     {
         parent::setUp();
 
-        $this->clientRepository = new ClientRepositoryFake();
+        $this->clientRepository = new InMemoryClientRepository();
         $this->clientService = new ClientService($this->clientRepository);
 
         $this->seed(DatabaseSeeder::class);
