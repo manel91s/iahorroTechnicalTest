@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/** php artisan test tests/Functional/ClientControllerTest.php */
+
 class ClientControllerTest extends TestCase
 {
     use DatabaseMigrations;

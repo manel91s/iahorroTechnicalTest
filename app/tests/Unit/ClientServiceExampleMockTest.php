@@ -30,6 +30,9 @@ class ClientServiceExampleMockTest extends TestCase
     $this->clientService = new ClientService($this->clientRepository);
   }
 
+  /**
+   * Check if get method returns a client
+   */
   public function testGetClient()
   {
     $client = new Client();
@@ -50,6 +53,9 @@ class ClientServiceExampleMockTest extends TestCase
     $this->assertEquals($client->id, $result->id);
   }
 
+  /**
+   * Check if save method returns a client
+   */
   public function testSaveClient()
   {
     $client = new Client();
@@ -82,6 +88,9 @@ class ClientServiceExampleMockTest extends TestCase
     $this->assertEquals($client->email, $result->email);
   }
 
+  /**
+   * check if update method returns a client
+   */
   public function testUpdateClient()
   {
     $client = new Client();
@@ -119,6 +128,9 @@ class ClientServiceExampleMockTest extends TestCase
     $this->assertEquals($client->email, $result->email);
   }
 
+  /**
+   * check if delete method returns a true
+   */
   public function testDeleteClient()
   {
     $client = new Client();

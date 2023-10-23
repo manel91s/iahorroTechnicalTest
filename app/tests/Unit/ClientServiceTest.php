@@ -16,9 +16,6 @@ use Tests\TestCase;
 
 class ClientServiceTest extends TestCase
 {
-    use DatabaseMigrations;
-    use RefreshDatabase;
-
     private ClientService $clientService;
     private InMemoryClientRepository $clientRepository;
 
