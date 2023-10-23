@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use App\Services\ScoreServiceFactory;
@@ -50,6 +52,6 @@ class ScoreServiceFactoryTest extends TestCase
     {
         $this->expectException(\Symfony\Component\HttpFoundation\Exception\BadRequestException::class);
 
-        ScoreServiceFactory::make('invalid');
+        ScoreServiceFactory::make(999);
     }
 }

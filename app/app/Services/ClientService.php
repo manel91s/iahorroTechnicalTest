@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Client;
@@ -44,18 +46,16 @@ class ClientService
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
+            'type_id' => $request->get('type_id'),
         ]);
 
-        $register->type_id = $request->get('type_id');
+        $register->score = $this->getScore($register);
 
         $register = $this->clientRepository->save($register);
 
         if (!$register->id) {
             throw new BadRequestHttpException('Error to save client', null, 400);
         }
-
-        $register->score = $this->getScore($register);
-        $register->save();
 
         return $register;
     }

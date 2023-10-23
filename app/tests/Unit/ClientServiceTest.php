@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use App\Models\Client;
@@ -10,6 +12,8 @@ use Database\Seeders\DatabaseSeeder;
 use Symfony\Component\HttpFoundation\Request;
 use Tests\TestCase;
 
+/** php artisan test tests/Unit/ClientServiceTest.php */
+
 class ClientServiceTest extends TestCase
 {
     use DatabaseMigrations;
@@ -17,15 +21,13 @@ class ClientServiceTest extends TestCase
 
     private ClientService $clientService;
     private InMemoryClientRepository $clientRepository;
-   
+
     public function setup(): void
     {
         parent::setUp();
 
         $this->clientRepository = new InMemoryClientRepository();
         $this->clientService = new ClientService($this->clientRepository);
-
-        $this->seed(DatabaseSeeder::class);
     }
 
     /**
@@ -43,7 +45,7 @@ class ClientServiceTest extends TestCase
         $result = $this->clientService->save($request);
 
         $this->assertInstanceOf(Client::class, $result);
-        $this->assertNotNull($result);
+        $this->assertEquals(1, $result->id);
     }
 
     /**
